@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +45,9 @@ namespace ScheduleApi
 
       //注入Repository
       services.AddTransient<IScheduleInfoRepository, ScheduleInfoRepository>();
+      services.AddTransient<IAllScheduleRepository, AllScheduleRepository>();
+
+      services.AddRouting();
 
       services.AddMvc();
     }
@@ -60,6 +65,37 @@ namespace ScheduleApi
       app.UseDefaultFiles();
       app.UseStaticFiles();
       app.UseMvc();
+
+      //建置Route
+      var defaultRouteHandler = new RouteHandler(context =>
+              {
+                var routeValues = context.GetRouteData().Values;
+                return context.Response.WriteAsync($"Route values: {string.Join(", ", routeValues)}");
+              });
+      //在這個物件定義路由規則，當 Requset URL 符合規則就會執行該事件
+      var routeBuilder = new RouteBuilder(app, defaultRouteHandler);
+      //預設的路由規則
+      //URL 第一層透過正規表示式必需是 default 或 api，並放到路由變數 first 中
+      //URL 第二層可有可無，如果有的話，放到路由變數 second 中      
+      routeBuilder.MapRoute(name: "default", template: "api/{controller}/{action}/{id?}");
+
+      //透過不同的 HTTP Method，對應不同的事件
+      //指定為HTTP Get,第一層必需是 api 第二,三層必需要有值，放到路由變數 controller,action 中
+      // routeBuilder.MapGet("api/{controller}/{action}/{id?}", context =>
+      // {
+      //   var controller = context.GetRouteValue("controller");
+      //   return context.Response.WriteAsync($"Get api. controller: {controller}");
+      // });
+
+      // routeBuilder.MapPost("api/{controller}/{action}", context =>
+      // {
+      //   var controller = context.GetRouteValue("controller");
+      //   return context.Response.WriteAsync($"post api. controller: {controller}");
+      // });
+
+      var routes = routeBuilder.Build();
+      app.UseRouter(routes);
+
 
       //建立DB
       //if (env.EnvironmentName == "Development")      
