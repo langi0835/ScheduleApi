@@ -38,6 +38,19 @@ namespace ScheduleApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      //跨網域請求
+      services.AddCors(options =>
+              {
+          // CorsPolicy 是自訂的 Policy 名稱
+          options.AddPolicy("CorsPolicy", policy =>
+          {
+                    policy.WithOrigins("http://localhost:4200")//設定允許跨域的來源
+                    .AllowAnyHeader()//允許任何的 Request Header
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                  });
+              });
+
       var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
       //注入DbContext(AddDbContextPool:可共用的pool)
@@ -58,6 +71,9 @@ namespace ScheduleApi
 
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       // loggerFactory.AddDebug();
+
+      //跨網域請求套用
+      app.UseCors("CorsPolicy");
 
       // 存取 SPA 網頁資源
       app.UseSpaStaticFiles();

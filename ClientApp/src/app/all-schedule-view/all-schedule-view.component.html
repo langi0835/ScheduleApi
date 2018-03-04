@@ -1,0 +1,19 @@
+<table class="all-schedule-item">
+	<thead>
+		<tr>
+			<th class="col-sm-1">排程資訊名稱</th>
+			<th class="col-sm-1">排程識別碼</th>
+			<th class="col-sm-2">任務群組名稱</th>
+			<th class="col-sm-1">動作</th>
+			<th class="col-sm-3">描述</th>
+			<th class="col-sm-1">指定日期</th>
+			<th class="col-sm-1">指定時間(ex:16:20)</th>
+		</tr>
+	</thead>
+	<tbody *ngFor="let item of allScheduleItems">
+		<tr>
+			<td>{{ item.INFO_NAME }}</td>
+			<td>{{ item.JOB_SCHEDULE_ID }}</td>
+		</tr>
+	</tbody>
+</table>
