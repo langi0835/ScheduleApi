@@ -1,28 +1,40 @@
-<nav class="navbar navbar-default " role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a routerLink="/" routerLinkActive="active">排程管理平台</a>
-		</div>
-		<div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav ">
-				選單列
-			</ul>
-			<ul class="nav navbar-nav navbar-right ">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						accountName
-						<span class="caret"></span>
+<div>
+	<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
+		<a class="navbar-brand mb-0 h1" href="#">排程管理平台</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		  aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">所有排程
+						<span class="sr-only">(current)</span>
 					</a>
-					<ul class="dropdown-menu" role="menu">
-						<li>
-							<a href="#" (click)="logout()">登出</a>
-						</li>
-					</ul>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						{{accountName}}
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#" (click)="logout()">登出</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
 				</li>
 			</ul>
+			<!-- <form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form> -->
 		</div>
-	</div>
-</nav>
+	</nav>
+</div>
 
 <div class="panel">
 	<div class="panel-body">
