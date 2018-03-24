@@ -12,8 +12,8 @@
 	</thead>
 	<tbody *ngFor="let item of allScheduleItems">
 		<tr>
-			<td scope="row">{{ item.INFO_NAME }}</td>
-			<td scope="row">{{ item.JOB_SCHEDULE_ID }}</td>
+			<td scope="row">{{ item.items.INFO_NAME }}</td>
+			<td scope="row">{{ item.items.JOB_SCHEDULE_ID }}</td>
 		</tr>
 	</tbody>
 </table>

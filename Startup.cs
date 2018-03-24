@@ -41,14 +41,14 @@ namespace ScheduleApi
       //跨網域請求
       services.AddCors(options =>
               {
-          // CorsPolicy 是自訂的 Policy 名稱
-          options.AddPolicy("CorsPolicy", policy =>
-          {
-                    policy.WithOrigins("http://localhost:4200")//設定允許跨域的來源
-                    .AllowAnyHeader()//允許任何的 Request Header
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                  });
+                // CorsPolicy 是自訂的 Policy 名稱
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                  policy.WithOrigins("http://localhost:4200")//設定允許跨域的來源
+            .AllowAnyHeader()//允許任何的 Request Header
+            .AllowAnyMethod()
+            .AllowCredentials();
+                });
               });
 
       var connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -66,7 +66,7 @@ namespace ScheduleApi
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ScheduleDbContext dbContext)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
 
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -114,10 +114,7 @@ namespace ScheduleApi
 
 
       //建立DB
-      //if (env.EnvironmentName == "Development")      
-      dbContext.Database.EnsureDeleted();
-
-      dbContext.Database.EnsureCreated();
+      //DbInitializer.Initialize(dbContext);
 
     }
 
